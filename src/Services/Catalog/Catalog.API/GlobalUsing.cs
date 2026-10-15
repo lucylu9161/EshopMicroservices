@@ -9,5 +9,5 @@ global using FluentValidation;
 //global using FluentValidation.DependencyInjectionExtensions;
 global using BuildingBlocks.Behaviors;
 global using BuildingBlocks.Exceptions.Handler;
-//global using Catalog.API.Data;
+global using Catalog.API.Data;
 //global using Marten.Pagination;
