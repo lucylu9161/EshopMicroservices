@@ -14,6 +14,28 @@ public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
     }
 }
 
+public class StoreBasketCommandHandler
+    (IBasketRepository repository)
+    : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+{
+    public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
+    {       
+        await repository.StoreBasket(command.Cart, cancellationToken);
+
+        return new StoreBasketResult(command.Cart.UserName);
+    }
+
+    //private async Task DeductDiscount(ShoppingCart cart, CancellationToken cancellationToken)
+    //{
+    //    // Communicate with Discount.Grpc and calculate lastest prices of products into sc
+    //    foreach (var item in cart.Items)
+    //    {
+    //        var coupon = await discountProto.GetDiscountAsync(new GetDiscountRequest { ProductName = item.ProductName }, cancellationToken: cancellationToken);
+    //        item.Price -= coupon.Amount;
+    //    }
+    //}
+}
+
 //public class StoreBasketCommandHandler
 //    (IBasketRepository repository, DiscountProtoService.DiscountProtoServiceClient discountProto)
 //    : ICommandHandler<StoreBasketCommand, StoreBasketResult>
@@ -38,18 +60,18 @@ public class StoreBasketCommandValidator : AbstractValidator<StoreBasketCommand>
 //    }
 //}
 
-public class StoreBasketCommandHandler
-    : ICommandHandler<StoreBasketCommand, StoreBasketResult>
-{
-    public async Task<StoreBasketResult> Handle(
-        StoreBasketCommand command,
-        CancellationToken cancellationToken)
-    {
-        ShoppingCart cart = command.Cart;
+//public class StoreBasketCommandHandler
+//    : ICommandHandler<StoreBasketCommand, StoreBasketResult>
+//{
+//    public async Task<StoreBasketResult> Handle(
+//        StoreBasketCommand command,
+//        CancellationToken cancellationToken)
+//    {
+//        ShoppingCart cart = command.Cart;
 
-        // TODO: store basket in database (use Marten upsert - if exist = update, if not ...)
-        // TODO: update cache
+//        // TODO: store basket in database (use Marten upsert - if exist = update, if not ...)
+//        // TODO: update cache
 
-        return new StoreBasketResult("swn");
-    }
-}
+//        return new StoreBasketResult("swn");
+//    }
+//}
