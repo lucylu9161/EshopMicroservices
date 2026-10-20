@@ -7,8 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+//builder.Services.AddDbContext<DiscountContext>(opts =>
+//        opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
+
 builder.Services.AddDbContext<DiscountContext>(opts =>
-        opts.UseSqlite(builder.Configuration.GetConnectionString("Database")));
+{
+    opts.UseSqlite(builder.Configuration.GetConnectionString("Database"));
+    opts.EnableSensitiveDataLogging();
+    opts.LogTo(Console.WriteLine);
+});
 
 var app = builder.Build();
 
