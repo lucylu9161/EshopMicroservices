@@ -3,6 +3,9 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
+      "environmentVariables": {
+        "MT_LICENSE": ""
+      },
       "serviceActions": {
         "catalog.api": "StartDebugging",
         "basket.api": "StartDebugging",
